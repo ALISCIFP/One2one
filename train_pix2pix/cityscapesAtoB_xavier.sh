@@ -1,7 +1,7 @@
 set -ex
 python train.py \
 --dataroot ./datasets/cityscapes \
---name cityscapes_pix2pix_AtoB_xavier \
+--name cityscapes_pix2pix_AtoB_xavier_self \
 --model pix2pix \
 --netG unet_256 \
 --direction AtoB \
