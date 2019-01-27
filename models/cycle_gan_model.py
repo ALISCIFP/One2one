@@ -39,7 +39,6 @@ class CycleGANModel(BaseModel):
         parser.set_defaults(no_dropout=True)  # default CycleGAN did not use dropout
         if is_train:
             parser.add_argument('--lambda_A', type=float, default=10.0, help='weight for cycle loss (A -> B -> A)')
-            parser.add_argument('--lambda_B', type=float, default=10.0, help='weight for cycle loss (B -> A -> B)')
         return parser
 
     def __init__(self, opt):
@@ -133,29 +132,12 @@ class CycleGANModel(BaseModel):
         rec_A = self.rec_A_pool.query(self.rec_A)
         self.loss_D = self.backward_D_basic(self.netD, self.real_B, fake_B) + self.backward_D_basic(self.netD, self.real_A, rec_A)
 
-    def backward_D_rec(self):
-        """Calculate GAN loss for discriminator D_B"""
-        rec_A = self.rec_A_pool.query(self.rec_A)
-        self.loss_D_rec = self.backward_D_basic(self.netD, self.real_A, rec_A)
-
     def backward_G(self):
         """Calculate the loss for generators G_A and G_B"""
         # lambda_idt = self.opt.lambda_identity
         lambda_A = self.opt.lambda_A
         lambda_B = self.opt.lambda_B
-        # Identity loss
-        # if lambda_idt > 0:
-        #     # G_A should be identity if real_B is fed: ||G_A(B) - B||
-        #     self.idt_A = self.netG_A(self.real_B)
-        #     self.loss_idt_A = self.criterionIdt(self.idt_A, self.real_B) * lambda_B * lambda_idt
-        #     # G_B should be identity if real_A is fed: ||G_B(A) - A||
-        #     self.idt_B = self.netG_B(self.real_A)
-        #     self.loss_idt_B = self.criterionIdt(self.idt_B, self.real_A) * lambda_A * lambda_idt
-        # else:
-        #     self.loss_idt_A = 0
-        #     self.loss_idt_B = 0
 
-        # GAN loss D_A(G_A(A))
         self.loss_G = self.criterionGAN(self.netD(self.fake_B), True)
         self.loss_G_rec = self.criterionGAN(self.netD(self.rec_A), True)
 
