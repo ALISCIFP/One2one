@@ -10,4 +10,7 @@ python train.py \
 --norm batch \
 --pool_size 0 \
 --display_id 0 \
---gpu_ids 0
+--gpu_ids 0 \
+--niter 8 \
+--niter_decay 9 \
+--batch_size 4
