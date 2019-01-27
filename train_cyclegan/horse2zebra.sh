@@ -4,4 +4,5 @@ python train.py \
 --name horse2zebra_cyclegan \
 --model cycle_gan \
 --pool_size 50 \
---no_dropout
+--no_dropout \
+--display_id 0
