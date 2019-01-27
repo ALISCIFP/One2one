@@ -76,9 +76,6 @@ class CycleGANModel(BaseModel):
             # define loss functions
             self.criterionGAN = networks.GANLoss(opt.gan_mode).to(self.device)  # define GAN loss.
             self.criterionCycle = torch.nn.L1Loss()
-            # initialize optimizers; schedulers will be automatically created by function <BaseModel.setup>.
-            # self.optimizer_G = torch.optim.Adam(itertools.chain(self.netG_A.parameters(), self.netG_A.parameters()), lr=opt.lr, betas=(opt.beta1, 0.999))
-            # self.optimizer_D = torch.optim.Adam(itertools.chain(self.netD_A.parameters(), self.netD_A.parameters()), lr=opt.lr, betas=(opt.beta1, 0.999))
             self.optimizer_G = torch.optim.Adam(self.netG.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
             self.optimizer_D = torch.optim.Adam(self.netD.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
             self.optimizers.append(self.optimizer_G)
@@ -101,8 +98,6 @@ class CycleGANModel(BaseModel):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
         self.fake_B = self.netG(self.real_A)  # G_A(A)
         self.rec_A = self.netG(self.fake_B)   # G_B(G_A(A))
-        # self.fake_A = self.netG_B(self.real_B)  # G_B(B)
-        # self.rec_B = self.netG_A(self.fake_A)   # G_A(G_B(B))
 
     def backward_D_basic(self, netD, real, fake):
         """Calculate GAN loss for the discriminator
@@ -141,12 +136,8 @@ class CycleGANModel(BaseModel):
         self.loss_G = self.criterionGAN(self.netD(self.fake_B), True)
         self.loss_G_rec = self.criterionGAN(self.netD(self.rec_A), True)
 
-        # GAN loss D_B(G_B(B))
-        # self.loss_G_B = self.criterionGAN(self.netD_B(self.fake_A), True)
-        # Forward cycle loss || G_B(G_A(A)) - A||
         self.loss_cycle = self.criterionCycle(self.rec_A, self.real_A) * lambda_A
-        # Backward cycle loss || G_A(G_B(B)) - B||
-        # self.loss_cycle_B = self.criterionCycle(self.rec_B, self.real_B) * lambda_B
+
         # combined loss and calculate gradients
         self.loss_G = self.loss_G + self.loss_G_rec + self.loss_cycle
         self.loss_G.backward()
