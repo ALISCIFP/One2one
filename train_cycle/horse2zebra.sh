@@ -5,4 +5,6 @@ python train.py \
 --model cycle_gan \
 --pool_size 50 \
 --no_dropout \
---display_port 8098
+--display_port 8098 \
+--gpu_ids 1
+
