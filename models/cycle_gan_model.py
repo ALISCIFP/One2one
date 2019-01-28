@@ -131,8 +131,7 @@ class CycleGANModel(BaseModel):
         """Calculate the loss for generators G_A and G_B"""
         # lambda_idt = self.opt.lambda_identity
         lambda_A = self.opt.lambda_A
-        lambda_B = self.opt.lambda_B
-
+        
         self.loss_G = self.criterionGAN(self.netD(self.fake_B), True)
         self.loss_G_rec = self.criterionGAN(self.netD(self.rec_A), True)
 
