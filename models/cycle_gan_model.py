@@ -109,10 +109,10 @@ class CycleGANModel(BaseModel):
 
     def forward(self):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
-        self.fake_B = self.netG_A(self.real_A)  # G_A(A)
-        self.rec_A = self.netG_B(self.fake_B)   # G_B(G_A(A))
-        self.fake_A = self.netG_B(self.real_B)  # G_B(B)
-        self.rec_B = self.netG_A(self.fake_A)   # G_A(G_B(B))
+        self.fake_B = self.netG(self.real_A)  # G_A(A)
+        self.rec_A = self.netG(self.fake_B)   # G_B(G_A(A))
+        self.fake_A = self.netG(self.real_B)  # G_B(B)
+        self.rec_B = self.netG(self.fake_A)   # G_A(G_B(B))
 
     def backward_D_basic(self, netD, real, fake):
         """Calculate GAN loss for the discriminator
@@ -182,7 +182,7 @@ class CycleGANModel(BaseModel):
         # forward
         self.forward()      # compute fake images and reconstruction images.
         # G_A and G_B
-        self.set_requires_grad(self.netD_A, False)  # Ds require no gradients when optimizing Gs
+        self.set_requires_grad(self.netD, False)  # Ds require no gradients when optimizing Gs
         self.optimizer_G.zero_grad()  # set G_A and G_B's gradients to zero
         self.backward_G()             # calculate gradients for G_A and G_B
         self.optimizer_G.step()       # update G_A and G_B's weights
