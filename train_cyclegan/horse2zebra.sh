@@ -1,7 +1,7 @@
 set -ex
 python train.py \
 --dataroot ./datasets/horse2zebra \
---name horse2zebra_cyclegan \
+--name horse2zebra_cyclegan_selfcycle \
 --model cycle_gan \
 --pool_size 50 \
 --no_dropout \
