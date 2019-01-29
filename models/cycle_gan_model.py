@@ -71,7 +71,6 @@ class CycleGANModel(BaseModel):
 
         if self.isTrain:
             self.fake_B_pool = ImagePool(opt.pool_size)  # create image buffer to store previously generated images
-            self.rec_A_pool = ImagePool(opt.pool_size)  # create image buffer to store previously generated images
 
             # define loss functions
             self.criterionGAN = networks.GANLoss(opt.gan_mode).to(self.device)  # define GAN loss.
@@ -124,8 +123,7 @@ class CycleGANModel(BaseModel):
     def backward_D(self):
         """Calculate GAN loss for discriminator D_A"""
         fake_B = self.fake_B_pool.query(self.fake_B)
-        rec_A = self.rec_A_pool.query(self.rec_A)
-        self.loss_D = self.backward_D_basic(self.netD, self.real_B, fake_B) + self.backward_D_basic(self.netD, self.real_A, rec_A)
+        self.loss_D = self.backward_D_basic(self.netD, self.real_B, fake_B)
 
     def backward_G(self):
         """Calculate the loss for generators G_A and G_B"""
@@ -133,12 +131,11 @@ class CycleGANModel(BaseModel):
         lambda_A = self.opt.lambda_A
         
         self.loss_G = self.criterionGAN(self.netD(self.fake_B), True)
-        self.loss_G_rec = self.criterionGAN(self.netD(self.rec_A), True)
 
         self.loss_cycle = self.criterionCycle(self.rec_A, self.real_A) * lambda_A
 
         # combined loss and calculate gradients
-        self.loss_G = self.loss_G + self.loss_G_rec + self.loss_cycle
+        self.loss_G = self.loss_G + self.loss_cycle
         self.loss_G.backward()
 
     def optimize_parameters(self):
