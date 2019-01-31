@@ -165,9 +165,9 @@ class CycleGANModel(BaseModel):
             self.loss_idt_B = 0
 
         # GAN loss D_A(G_A(A))
-        self.loss_G_A = self.criterionGAN(self.netD_A(self.fake_B), True) +  self.criterionGAN(self.netD(self.rec_A), True)
+        self.loss_G_A = self.criterionGAN(self.netD(self.fake_B), True) +  self.criterionGAN(self.netD(self.rec_A), True)
         # GAN loss D_B(G_B(B))
-        self.loss_G_B = self.criterionGAN(self.netD_B(self.fake_A), True) + self.criterionGAN(self.netD(self.rec_B), True)
+        self.loss_G_B = self.criterionGAN(self.netD(self.fake_A), True) + self.criterionGAN(self.netD(self.rec_B), True)
         # Forward cycle loss || G_B(G_A(A)) - A||
         self.loss_cycle_A = self.criterionCycle(self.rec_A, self.real_A) * lambda_A
         # Backward cycle loss || G_A(G_B(B)) - B||
