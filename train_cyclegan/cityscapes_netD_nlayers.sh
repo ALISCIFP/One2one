@@ -8,4 +8,6 @@ python train.py \
 --display_id 0 \
 --gpu_ids 0 \
 --netD n_layers \
---n_layers_D 5
+--n_layers_D 5 \
+--continue_train \
+--epoch_count 18 
