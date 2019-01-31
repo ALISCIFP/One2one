@@ -82,9 +82,7 @@ class CycleGANModel(BaseModel):
             if opt.lambda_identity > 0.0:  # only works when input and output images have the same number of channels
                 assert(opt.input_nc == opt.output_nc)
             self.fake_A_pool = ImagePool(opt.pool_size)  # create image buffer to store previously generated images
-            self.rec_A_pool = ImagePool(opt.pool_size)  # create image buffer to store previously generated images
             self.fake_B_pool = ImagePool(opt.pool_size)  # create image buffer to store previously generated images
-            self.rec_B_pool = ImagePool(opt.pool_size)  # create image buffer to store previously generated images            
             # define loss functions
             self.criterionGAN = networks.GANLoss(opt.gan_mode).to(self.device)  # define GAN loss.
             self.criterionCycle = torch.nn.L1Loss()
@@ -140,14 +138,12 @@ class CycleGANModel(BaseModel):
     def backward_D_A(self):
         """Calculate GAN loss for discriminator D_A"""
         fake_B = self.fake_B_pool.query(self.fake_B)
-        rec_A = self.fake_B_pool.query(self.rec_A)
-        self.loss_D_A = self.backward_D_basic(self.netD_A, self.real_B, fake_B) + self.backward_D_basic(self.netD_B, self.real_A, rec_A)
+        self.loss_D_A = self.backward_D_basic(self.netD_A, self.real_B, fake_B)
 
     def backward_D_B(self):
         """Calculate GAN loss for discriminator D_B"""
         fake_A = self.fake_A_pool.query(self.fake_A)
-        rec_B = self.fake_B_pool.query(self.rec_B)
-        self.loss_D_B = self.backward_D_basic(self.netD_B, self.real_A, fake_A) + self.backward_D_basic(self.netD_A, self.real_B, rec_B)
+        self.loss_D_B = self.backward_D_basic(self.netD_B, self.real_A, fake_A)
 
     def backward_G(self):
         """Calculate the loss for generators G_A and G_B"""
