@@ -5,4 +5,6 @@ python train.py \
 --model cycle_gan \
 --pool_size 50 \
 --no_dropout \
---display_port 8097
+--display_port 8099 \
+--lambda_A 0.0 \
+--lambda_B 0.0
