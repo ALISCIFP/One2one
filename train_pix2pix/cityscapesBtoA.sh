@@ -1,7 +1,7 @@
 set -ex
 python train.py \
 --dataroot ./datasets/cityscapes \
---name cityscapes_pix2pix_BtoA \
+--name cityscapes_pix2pix_BtoA_v2 \
 --model pix2pix \
 --netG unet_256 \
 --direction BtoA \
@@ -10,4 +10,4 @@ python train.py \
 --norm batch \
 --pool_size 0 \
 --display_id 0 \
---gpu_ids 1
+--gpu_ids 0
