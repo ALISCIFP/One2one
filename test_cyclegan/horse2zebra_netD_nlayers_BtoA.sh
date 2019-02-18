@@ -7,5 +7,5 @@ python test.py \
 --gpu_ids 0 \
 --phase test \
 --direction BtoA \
---epoch 150 \
+--epoch 200 \
 --num_test 140
