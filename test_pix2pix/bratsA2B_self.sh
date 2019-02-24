@@ -7,7 +7,7 @@ python test.py \
 --direction AtoB \
 --dataset_mode aligned \
 --norm batch \
---num_test 1000 \
+--num_test 10230 \
 --epoch 30 \
 --input_nc 1 \
 --output_nc 1
