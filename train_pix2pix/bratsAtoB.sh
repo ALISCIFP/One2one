@@ -15,5 +15,6 @@ python train.py \
 --output_nc 1 \
 --continue_train \
 --epoch_count 50 \
+--epoch 50 \
 --niter 50 \
 --niter_decay 50
