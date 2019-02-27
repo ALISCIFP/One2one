@@ -12,7 +12,7 @@ python train.py \
 --display_id 0 \
 --gpu_ids 0 \
 --input_nc 1 \
---output_nc 1 
+--output_nc 1 \
 --continue_train \
 --epoch_count 50 \
 --epoch 50 \
