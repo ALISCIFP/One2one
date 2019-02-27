@@ -74,6 +74,7 @@ class Pix2PixModel(BaseModel):
             self.optimizer_D = torch.optim.Adam(self.netD.parameters(), lr=opt.lr, betas=(opt.beta1, 0.999))
             self.optimizers.append(self.optimizer_G)
             self.optimizers.append(self.optimizer_D)
+        self.score_dir = opt.score_dir
 
     def set_input(self, input):
         """Unpack input data from the dataloader and perform necessary pre-processing steps.
@@ -101,7 +102,7 @@ class Pix2PixModel(BaseModel):
         with torch.no_grad():
             mse = self.criterionMSE(self.fake_B, self.real_B)
             psnr = 10 * log10(1 / mse.item())
-        fL1csv = open( './results_brats_BtoA/self_all.csv', 'a+')
+        fL1csv = open(self.score_dir, 'a+')
         fL1csv.write('%s,%f,%f,%f\n' % (self.image_paths,self.ssim_loss(img1,img2),psnr,self.L1loss))
 
     def backward_D(self):

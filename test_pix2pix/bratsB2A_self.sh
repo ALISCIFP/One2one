@@ -8,6 +8,7 @@ python test.py \
 --dataset_mode aligned \
 --norm batch \
 --num_test 10230 \
---epoch 30 \
+--epoch 35 \
 --input_nc 1 \
---output_nc 1
+--output_nc 1 \
+--score_dir ./results_brats_BtoA/self50.csv
