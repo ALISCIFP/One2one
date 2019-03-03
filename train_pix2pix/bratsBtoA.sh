@@ -1,7 +1,7 @@
 set -ex
 python train.py \
 --dataroot ./datasets/BratsT1T2 \
---name BratsT1T2_pix2pix_BtoA_continue50 \
+--name BratsT1T2_pix2pix_BtoA_continue10 \
 --model pix2pix \
 --netG unet_256 \
 --direction BtoA \
@@ -14,7 +14,9 @@ python train.py \
 --input_nc 1 \
 --output_nc 1 \
 --continue_train \
---epoch_count 50 \
---epoch 50 \
---niter 50 \
---niter_decay 50
+--epoch_count 10 \
+--epoch 10 \
+--niter 10 \
+--niter_decay 10 \
+--save_epoch_freq 1 \
+--save_latest_freq 20000
