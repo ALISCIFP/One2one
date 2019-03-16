@@ -3,6 +3,8 @@ debug*
 datasets/
 checkpoints
 results/
+results_brats_AtoB
+results_brats_BtoA
 build/
 dist/
 .vscode
