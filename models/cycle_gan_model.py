@@ -194,8 +194,10 @@ class CycleGANModel(BaseModel):
         # G_A and G_B
         self.set_requires_grad(self.netD, False)  # Ds require no gradients when optimizing Gs
         self.optimizer_G.zero_grad()  # set G_A and G_B's gradients to zero
-        self.backward_G()             # calculate gradients for G_A and G_B
-        self.optimizer_G.step()       # update G_A and G_B's weights
+        self.backward_G_A()             # calculate gradients for G_A and G_B
+        self.optimizer_G_A.step()       # update G_A and G_B's weights
+        self.backward_G_B()             # calculate gradients for G_A and G_B
+        self.optimizer_G_B.step()       # update G_A and G_B's weights
         # D_A and D_B
         self.set_requires_grad(self.netD, True)
         self.optimizer_D.zero_grad()   # set D_A and D_B's gradients to zero
