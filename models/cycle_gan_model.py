@@ -148,6 +148,7 @@ class CycleGANModel(BaseModel):
     def backward_G_A(self):
         """Calculate the loss for generators G_A and G_B"""
         lambda_idt = self.opt.lambda_identity
+        lambda_A = self.opt.lambda_A        
         lambda_B = self.opt.lambda_B
 
         # Identity loss
@@ -172,6 +173,7 @@ class CycleGANModel(BaseModel):
         """Calculate the loss for generators G_A and G_B"""
         lambda_idt = self.opt.lambda_identity
         lambda_A = self.opt.lambda_A
+        lambda_B = self.opt.lambda_B
         # Identity loss
         if lambda_idt > 0:
 
