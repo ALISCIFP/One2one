@@ -8,4 +8,5 @@ python train.py \
 --display_port 8099 \
 --gpu_ids 0 \
 --continue_train \
---epoch_count 40
+--lambda_identity 0.1 \
+--epoch_count 100
