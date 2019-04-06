@@ -6,4 +6,8 @@ python train.py \
 --pool_size 50 \
 --no_dropout \
 --display_port 8098 \
---gpu_ids 1 
+--gpu_ids 1 \
+--continue_train \
+--epoch_count 30 \
+--niter 80 \
+--niter_decay 40
