@@ -9,5 +9,7 @@ python train.py \
 --gpu_ids 0 \
 --netD n_layers \
 --n_layers_D 5 \
---lambda_identity 0.1 
+--lambda_identity 0.1 \
+--continue_train \
+--epoch_count 100 
 
