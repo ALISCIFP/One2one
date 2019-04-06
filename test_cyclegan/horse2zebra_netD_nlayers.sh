@@ -6,6 +6,6 @@ python test.py \
 --no_dropout \
 --gpu_ids 0 \
 --phase test \
---direction AtoB \
+--direction BtoA \
 --epoch 150 \
---num_test 120
+--num_test 140
