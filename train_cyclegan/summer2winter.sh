@@ -5,6 +5,8 @@ python train.py \
 --model cycle_gan \
 --pool_size 50 \
 --no_dropout \
---display_port 8099 \
---gpu_ids 0 \
---lambda_identity 0.1 
+--display_port 8096 \
+--gpu_ids 1 \
+--lambda_identity 0.1 \
+--continue_train \
+--epoch_count 11

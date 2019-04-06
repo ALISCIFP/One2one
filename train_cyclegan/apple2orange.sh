@@ -7,4 +7,6 @@ python train.py \
 --no_dropout \
 --display_port 8097 \
 --gpu_ids 0 \
---lambda_identity 0.1 
+--lambda_identity 0.1 \
+--continue_train \
+--epoch_count 142
