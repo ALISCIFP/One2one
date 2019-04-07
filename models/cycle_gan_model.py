@@ -93,6 +93,9 @@ class CycleGANModel(BaseModel):
             self.optimizer_D = torch.optim.Adam(itertools.chain(self.netD_A.parameters(), self.netD_B.parameters()), lr=opt.lr, betas=(opt.beta1, 0.999))
             self.optimizers.append(self.optimizer_G)
             self.optimizers.append(self.optimizer_D)
+        self.criterionL1 = torch.nn.L1Loss()
+        self.criterionMSE = torch.nn.MSELoss()
+        self.score_dir = opt.score_dir
 
     def set_input(self, input):
         """Unpack input data from the dataloader and perform necessary pre-processing steps.
@@ -113,7 +116,19 @@ class CycleGANModel(BaseModel):
         self.rec_A = self.netG(self.fake_B)   # G_B(G_A(A))
         self.fake_A = self.netG(self.real_B)  # G_B(B)
         self.rec_B = self.netG(self.fake_A)   # G_A(G_B(B))
+        self.L1loss = self.criterionL1(self.fake_B, self.real_B)
+        self.MSELoss = self.criterionMSE(self.fake_B, self.real_B)
+        if torch.cuda.is_available():
+            img1 = self.fake_B.cuda()
+            img2 = self.real_B.cuda()
+        print(pytorch_ssim.ssim(img1, img2))
+        self.ssim_loss = pytorch_ssim.SSIM(window_size = 11)
 
+        with torch.no_grad():
+            mse = self.criterionMSE(self.fake_B, self.real_B)
+            psnr = 10 * log10(1 / mse.item())
+        fL1csv = open(self.score_dir, 'a+')
+        fL1csv.write('%s,%f,%f,%f,%f\n' % (self.image_paths,self.ssim_loss(img1,img2),psnr,self.L1loss,self.MSELoss))
         
 
     def backward_D_basic(self, netD, real, fake):
