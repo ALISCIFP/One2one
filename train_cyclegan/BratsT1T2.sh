@@ -5,7 +5,7 @@ python train.py \
 --model cycle_gan \
 --pool_size 50 \
 --no_dropout \
---display_port 8100 \
+--display_port 8099 \
 --gpu_ids 1 \
 --niter 4 \
 --niter_decay 3 \

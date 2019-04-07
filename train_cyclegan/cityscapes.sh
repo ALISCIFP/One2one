@@ -5,9 +5,9 @@ python train.py \
 --model cycle_gan \
 --pool_size 50 \
 --no_dropout \
---display_port 8098 \
+--display_port 8097 \
 --gpu_ids 1 \
 --continue_train \
---epoch_count 30 \
---niter 80 \
---niter_decay 40
+--epoch_count 27 \
+--niter 90 \
+--niter_decay 30
