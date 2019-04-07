@@ -93,12 +93,9 @@ class Pix2PixModel(BaseModel):
         """Run forward pass; called by both functions <optimize_parameters> and <test>."""
         self.fake_B = self.netG(self.real_A)  # G(A)
         self.L1loss = self.criterionL1(self.fake_B, self.real_B)
-        if torch.cuda.is_available():
-            img1 = self.fake_B.cuda()
-            img2 = self.real_B.cuda()
-        print(pytorch_ssim.ssim(img1, img2))
+        img1 = self.fake_B.cuda()
+        img2 = self.real_B.cuda()
         self.ssim_loss = pytorch_ssim.SSIM(window_size = 11)
-
         with torch.no_grad():
             mse = self.criterionMSE(self.fake_B, self.real_B)
             psnr = 10 * log10(1 / mse.item())

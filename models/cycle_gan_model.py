@@ -116,19 +116,23 @@ class CycleGANModel(BaseModel):
         self.rec_A = self.netG(self.fake_B)   # G_B(G_A(A))
         self.fake_A = self.netG(self.real_B)  # G_B(B)
         self.rec_B = self.netG(self.fake_A)   # G_A(G_B(B))
-        self.L1loss = self.criterionL1(self.fake_B, self.real_B)
-        self.MSELoss = self.criterionMSE(self.fake_B, self.real_B)
-        if torch.cuda.is_available():
-            img1 = self.fake_B.cuda()
-            img2 = self.real_B.cuda()
+        self.L1lossAB = self.criterionL1(self.fake_B, self.real_B)
+        self.L1lossBA = self.criterionL1(self.fake_A, self.real_A)
+
+        img1 = self.fake_B.cuda()
+        img2 = self.real_B.cuda()
+        img3 = self.real_B.cuda()
+        img4 = self.real_B.cuda()
+
         print(pytorch_ssim.ssim(img1, img2))
         self.ssim_loss = pytorch_ssim.SSIM(window_size = 11)
-
         with torch.no_grad():
-            mse = self.criterionMSE(self.fake_B, self.real_B)
-            psnr = 10 * log10(1 / mse.item())
+            mseAB = self.criterionMSE(self.fake_B, self.real_B)
+            psnrAB = 10 * log10(1 / mseBA.item())
+            mseBA = self.criterionMSE(self.fake_A, self.real_A)
+            psnrBA = 10 * log10(1 / mseBA.item())           
         fL1csv = open(self.score_dir, 'a+')
-        fL1csv.write('%s,%f,%f,%f,%f\n' % (self.image_paths,self.ssim_loss(img1,img2),psnr,self.L1loss,self.MSELoss))
+        fL1csv.write('%s,%f,%f,%f,%f,%f,%f,%f,%f\n' % (self.image_paths,self.ssim_loss(img1,img2),psnrAB,self.L1lossAB,mseAB,self.ssim_loss(img3,img4),psnrBA,self.L1lossBA,mseBA))
         
 
     def backward_D_basic(self, netD, real, fake):
