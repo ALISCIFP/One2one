@@ -121,14 +121,12 @@ class CycleGANModel(BaseModel):
 
         img1 = self.fake_B.cuda()
         img2 = self.real_B.cuda()
-        img3 = self.real_B.cuda()
-        img4 = self.real_B.cuda()
-
-        print(pytorch_ssim.ssim(img1, img2))
+        img3 = self.fake_A.cuda()
+        img4 = self.real_A.cuda()
         self.ssim_loss = pytorch_ssim.SSIM(window_size = 11)
         with torch.no_grad():
             mseAB = self.criterionMSE(self.fake_B, self.real_B)
-            psnrAB = 10 * log10(1 / mseBA.item())
+            psnrAB = 10 * log10(1 / mseAB.item())
             mseBA = self.criterionMSE(self.fake_A, self.real_A)
             psnrBA = 10 * log10(1 / mseBA.item())           
         fL1csv = open(self.score_dir, 'a+')
