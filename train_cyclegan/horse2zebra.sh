@@ -9,5 +9,5 @@ python train.py \
 --gpu_ids 0 \
 --continue_train \
 --lambda_identity 0.1 \
---epoch_count 100 \
+--epoch_count 116 \
 --lambda_B 1.0

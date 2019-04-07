@@ -11,5 +11,5 @@ python train.py \
 --n_layers_D 5 \
 --lambda_identity 0.1 \
 --continue_train \
---epoch_count 100 
+--epoch_count 129 
 
