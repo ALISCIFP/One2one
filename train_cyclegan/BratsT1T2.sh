@@ -8,7 +8,7 @@ python train.py \
 --display_port 8099 \
 --gpu_ids 1 \
 --niter 4 \
---niter_decay 3 \
+--niter_decay 4 \
 --display_freq 4000 \
 --input_nc 1 \
 --output_nc 1 \
@@ -16,4 +16,4 @@ python train.py \
 --save_latest_freq 20000 \
 --update_html_freq 20000  \
 --continue_train \
---epoch_count 3
+--epoch_count 8
