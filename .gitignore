@@ -3,7 +3,7 @@ debug*
 datasets/
 checkpoints
 results/
-results2/
+results2
 build/
 dist/
 .vscode
