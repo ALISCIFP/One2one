@@ -10,5 +10,6 @@ python test.py \
 --num_test 10230 \
 --input_nc 1 \
 --output_nc 1 \
---score_dir ./results/bratsT1T2_cycle_sepLoss6dot6.csv \
+--epoch 7 \
+--score_dir ./results/bratsT1T2_cycle_sepLoss7.csv \
 --results_dir ./results/
