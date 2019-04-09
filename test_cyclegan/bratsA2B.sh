@@ -8,8 +8,8 @@ python test.py \
 --direction AtoB \
 --dataset_mode aligned \
 --num_test 10230 \
---epoch 10 \
+--epoch 11 \
 --input_nc 1 \
 --output_nc 1 \
---score_dir ./results/bratsT1T2_cycle10.csv \
+--score_dir ./results/bratsT1T2_cycle11.csv \
 --results_dir ./results/
