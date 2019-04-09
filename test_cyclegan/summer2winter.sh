@@ -7,5 +7,5 @@ python test.py \
 --gpu_ids 1 \
 --phase test \
 --direction AtoB \
---epoch 175 \
+--epoch 200 \
 --num_test 309
