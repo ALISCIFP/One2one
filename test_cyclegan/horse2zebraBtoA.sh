@@ -1,10 +1,11 @@
 set -ex
 python test.py \
 --dataroot ./datasets/horse2zebra \
---name horse2zebra_cyclegan_selfcycle_2Dis_noRecGan_SepLoss_Resume200Idt_lambdaB1 \
+--name horse2zebra_cyclegan \
 --model cycle_gan \
 --no_dropout \
 --gpu_ids 0 \
 --phase test \
---direction BtoA \
+# --direction BtoA \
+--epoch 200 \
 --num_test 140
