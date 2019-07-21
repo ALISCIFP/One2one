@@ -3,6 +3,7 @@ debug*
 datasets/
 checkpoints
 results/
+cityscapesAB/
 results_brats_AtoB
 results_brats_BtoA
 build/
