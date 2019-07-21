@@ -5,6 +5,7 @@ checkpoints
 results/
 build/
 dist/
+logs/
 .vscode
 *.png
 *.csv

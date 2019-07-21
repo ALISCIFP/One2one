@@ -3,6 +3,7 @@ import torch.nn as nn
 from torch.nn import init
 import functools
 from torch.optim import lr_scheduler
+from .visualizer_image import TBnn
 
 
 ###############################################################################
@@ -499,7 +500,9 @@ class UnetSkipConnectionBlock(nn.Module):
                                         kernel_size=4, stride=2,
                                         padding=1)
             down = [downconv]
-            up = [uprelu, upconv, nn.Tanh()]
+           # visual = [uprelu, upconv, feature_vis]
+            up = [uprelu , TBnn(), upconv, nn.Tanh()]
+
             model = down + [submodule] + up
         elif innermost:
             upconv = nn.ConvTranspose2d(inner_nc, outer_nc,
@@ -512,14 +515,14 @@ class UnetSkipConnectionBlock(nn.Module):
             upconv = nn.ConvTranspose2d(inner_nc * 2, outer_nc,
                                         kernel_size=4, stride=2,
                                         padding=1, bias=use_bias)
-            down = [downrelu, downconv, downnorm]
-            up = [uprelu, upconv, upnorm]
+            down = [downrelu, TBnn() , downconv, downnorm]
+            up = [uprelu, TBnn(), upconv, upnorm]
 
             if use_dropout:
                 model = down + [submodule] + up + [nn.Dropout(0.5)]
             else:
                 model = down + [submodule] + up
-
+                
         self.model = nn.Sequential(*model)
 
     def forward(self, x):
