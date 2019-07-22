@@ -23,9 +23,17 @@ from options.train_options import TrainOptions
 from data import create_dataset
 from models import create_model
 from util.visualizer import Visualizer
+from tensorboardX import SummaryWriter
+import torchvision.utils as vutils
+import os
+
 
 if __name__ == '__main__':
     opt = TrainOptions().parse()   # get training options
+    #hist_logdir
+    hist_dir = os.path.join(opt.log_dir, 'hist')
+    writer = SummaryWriter(hist_dir)
+    
     dataset = create_dataset(opt)  # create a dataset given opt.dataset_mode and other options
     dataset_size = len(dataset)    # get the number of images in the dataset.
     print('The number of training images = %d' % dataset_size)
@@ -54,6 +62,10 @@ if __name__ == '__main__':
                 save_result = total_iters % opt.update_html_freq == 0
                 model.compute_visuals()
                 visualizer.display_current_results(model.get_current_visuals(), epoch, save_result)
+
+            #visulaize
+            for name, param in model.netG.model.state_dict().items():
+                writer.add_histogram(name, param, i)
 
             if total_iters % opt.print_freq == 0:    # print training losses and save logging information to the disk
                 losses = model.get_current_losses()

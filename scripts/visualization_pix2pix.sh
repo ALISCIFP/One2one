@@ -1,10 +1,21 @@
-python train.py --dataroot ./datasets/city_4imgs \
---checkpoints_dir ../Self-inverse-Networks-PyTorch/checkpoints \
---name cityscapes_pix2pix_Self_400epoch_vis --model pix2pix --netG unet_256 \
---continue_train \
---lr 0.0 \
---epoch_count 200 \
---direction AtoB \
---dataset_mode aligned --norm batch --pool_size 0 \
---display_id 0 \
+python train.py --dataroot ../Self-inverse-master/datasets/brat_4imgs \
+--checkpoints_dir ../One2one/checkpoints \
+--name BratsT1T2_pix2pix_BtoA \
+--direction BtoA \
+--log_dir ../Self-inverse-master/logs/brat_4imglog/img1/masterBtoA \
 --phase img1 \
+--epoch 25 \
+--model pix2pix --netG unet_256 \
+--continue_train \
+--niter 10 \
+--niter_decay 10 \
+--save_epoch_freq 1 \
+--lr 0.0 \
+--input_nc 1 \
+--output_nc 1 \
+--epoch_count 200 \
+--lambda_L1 100 \
+--dataset_mode aligned \
+--norm batch \
+--pool_size 0 \
+--display_id 0
