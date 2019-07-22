@@ -1,7 +1,8 @@
 set -ex
 python test.py \
---dataroot ./datasets/BratsT1T2 \
---name Brats_pix2pix_AtoB_self \
+--dataroot /home/zack/GitHub/One2one/datasets/BratsT1T2 \
+--checkpoints_dir /home/zack/GitHub/One2one/checkpoints \
+--name BratsT1T2_pix2pix_AtoB \
 --model pix2pix \
 --netG unet_256 \
 --direction AtoB \
