@@ -6,7 +6,8 @@ import sys,os
 # from options.test_options import TestOptions
 
 # opt = TrainOptions().parse()
-img_logdir = os.path.join('/home/yifan/Github/Self-inverse-master/logs/brat_4imglog/img1/masterBtoA', 'img')
+name = 'img1'
+img_logdir = os.path.join('/home/yifan/Github/Self-inverse-master/logs/brat_4imglog/%s/selfAtoB' %name, 'img')
 writer = SummaryWriter(img_logdir)
 
 
@@ -31,6 +32,6 @@ class TBnn(torch.nn.Module):
     img = vutils.make_grid(x_list, normalize=True, scale_each=True)
     #print(img.shape)
    # img = np.transpose(np.stack((img, img, img)), (1, 2, 0))
-    writer.add_image(opt.phase, img, 1)  # global step
+    writer.add_image(name, img, 1)  # global step
    #writer.add_histogram('hist_image2', x.flatten(), 200)
     return x

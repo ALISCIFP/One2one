@@ -1,7 +1,6 @@
 python test.py --dataroot ../Self-inverse-master/datasets/brat_4imgs \
---log_dir ../Self-inverse-master/logs/brat_4imglog/ \
---checkpoints_dir ./checkpoints \
---name BratsT1T2_pix2pix_AtoB \
+--checkpoints_dir /home/yifan/Github/One2one/checkpoints \
+--name Brats_pix2pix_AtoB_self \
 --direction AtoB \
 --phase img1 \
 --epoch 25 \
