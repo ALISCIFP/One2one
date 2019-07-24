@@ -1,7 +1,7 @@
 python train.py --dataroot ../Self-inverse-master/datasets/brat_4imgs \
---checkpoints_dir ../One2one/checkpoints \
---name BratsT1T2_pix2pix_BtoA \
---direction BtoA \
+--checkpoints_dir ~/checkpoints \
+--name BratsT1T2_pix2pix_AtoB \
+--direction AtoB \
 --log_dir ../Self-inverse-master/logs/brat_4imglog/img1/masterBtoA \
 --phase img1 \
 --epoch 25 \
