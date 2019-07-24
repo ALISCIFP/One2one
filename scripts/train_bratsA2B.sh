@@ -1,0 +1,20 @@
+python train.py --dataroot ../Self-inverse-master/datasets/brat_4imgs \
+--checkpoints_dir ./checkpoints \
+--name BratsT1T2_pix2pix_AtoB \
+--direction AtoB \
+--phase img1 \
+--epoch 25 \
+--model pix2pix --netG unet_256 \
+--continue_train \
+--niter 10 \
+--niter_decay 10 \
+--save_epoch_freq 1 \
+--lr 0.0 \
+--input_nc 1 \
+--output_nc 1 \
+--epoch_count 200 \
+--lambda_L1 100 \
+--dataset_mode aligned \
+--norm batch \
+--pool_size 0 \
+--display_id 0
