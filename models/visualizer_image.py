@@ -3,7 +3,7 @@ from tensorboardX import SummaryWriter
 import torchvision.utils as vutils
 import sys,os
 # sys.path.append('../')
-# from options.train_options import TrainOptions
+# from options.test_options import TestOptions
 
 # opt = TrainOptions().parse()
 img_logdir = os.path.join('/home/yifan/Github/Self-inverse-master/logs/brat_4imglog/img1/masterBtoA', 'img')

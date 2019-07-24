@@ -1,21 +1,12 @@
-python train.py --dataroot ../Self-inverse-master/datasets/brat_4imgs \
---checkpoints_dir ~/checkpoints \
+python test.py --dataroot ../Self-inverse-master/datasets/brat_4imgs \
+--log_dir ../Self-inverse-master/logs/brat_4imglog/ \
+--checkpoints_dir ./checkpoints \
 --name BratsT1T2_pix2pix_AtoB \
 --direction AtoB \
---log_dir ../Self-inverse-master/logs/brat_4imglog/img1/masterBtoA \
 --phase img1 \
 --epoch 25 \
 --model pix2pix --netG unet_256 \
---continue_train \
---niter 10 \
---niter_decay 10 \
---save_epoch_freq 1 \
---lr 0.0 \
 --input_nc 1 \
 --output_nc 1 \
---epoch_count 200 \
---lambda_L1 100 \
 --dataset_mode aligned \
 --norm batch \
---pool_size 0 \
---display_id 0

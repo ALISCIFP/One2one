@@ -3,6 +3,9 @@ import torch
 from collections import OrderedDict
 from abc import ABC, abstractmethod
 from . import networks
+# import sys,os
+# sys.path.append('../')
+from .visualizer_image import TBnn
 
 
 class BaseModel(ABC):
@@ -154,6 +157,35 @@ class BaseModel(ABC):
                 else:
                     torch.save(net.cpu().state_dict(), save_path)
 
+#     def __patch_instance_norm_state_dict(self, state_dict, module, keys, i=0):
+#         """Fix InstanceNorm checkpoints incompatibility (prior to 0.4)"""
+#         key = keys[i]
+#         print('i',i, 'key', key)
+#         if(i==0):
+#             print(keys) # ['model', 'model', '1', 'model', '3', 'model', '1', 'weight']
+#             print(module) # the structure
+     
+#         if i + 1 == len(keys):  # at the end, pointing to a parameter/buffer
+#             if module.__class__.__name__.startswith('InstanceNorm') and \
+#                     (key == 'running_mean' or key == 'running_var'):
+#                 if getattr(module, key) is None:
+#                     state_dict.pop('.'.join(keys))
+#             if module.__class__.__name__.startswith('InstanceNorm') and \
+#                (key == 'num_batches_tracked'):
+#                 state_dict.pop('.'.join(keys))
+#         else:
+#             if(key != 'model' and key !='weight' and key !='bias'):
+#                 print('check numbers')
+#                 add = 0
+#                 for n in range(int(key)+1):
+#                     print(n)
+#                     if str(getattr(module, str(n)))=='TBnn()':
+#                         print('which one before has TBnn')
+#                         add += 1
+#                 key = str(int(key)+add)
+#                 print('new key',key)
+#             self.__patch_instance_norm_state_dict(state_dict, getattr(module, key), keys, i + 1)
+
     def __patch_instance_norm_state_dict(self, state_dict, module, keys, i=0):
         """Fix InstanceNorm checkpoints incompatibility (prior to 0.4)"""
         key = keys[i]
@@ -167,7 +199,8 @@ class BaseModel(ABC):
                 state_dict.pop('.'.join(keys))
         else:
             self.__patch_instance_norm_state_dict(state_dict, getattr(module, key), keys, i + 1)
-
+    
+    
     def load_networks(self, epoch):
         """Load all the networks from the disk.
 
@@ -184,7 +217,7 @@ class BaseModel(ABC):
                 print('loading the model from %s' % load_path)
                 # if you are using PyTorch newer than 0.4 (e.g., built from
                 # GitHub source), you can remove str() on self.device
-                state_dict = torch.load(load_path, map_location=str(self.device))
+                state_dict = torch.load(load_path, map_location=self.device)
                 if hasattr(state_dict, '_metadata'):
                     del state_dict._metadata
 
