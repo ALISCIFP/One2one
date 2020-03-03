@@ -9,6 +9,7 @@ We provide PyTorch implementations for both unpaired and paired image-to-image t
 The code was written by [Zengming Shen](https://github.com/ALISCIFP).
 
 
+
 **Note**: The current software works well with PyTorch 0.4+. 
 
 
@@ -50,3 +51,17 @@ If you love cats, and love reading cool graphics, vision, and learning papers, p
 
 ## Acknowledgments
 Our code is inspired by [pytorch-DCGAN](https://github.com/pytorch/examples/tree/master/dcgan).
+
+## Citation
+If you use this code for your research, please cite our papers.
+```
+@InProceedings{Shen_2020_WACV,
+author = {Shen, Zengming and Zhou, S. Kevin and Chen, Yifan and Georgescu, Bogdan and Liu, Xuqi and Huang, Thomas},
+title = {One-to-one Mapping for Unpaired Image-to-image Translation},
+booktitle = {The IEEE Winter Conference on Applications of Computer Vision (WACV)},
+month = {March},
+year = {2020}
+}
+```
+
+
